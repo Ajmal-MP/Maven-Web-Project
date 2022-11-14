@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
   <div class="w3-container w3-padding-64" id="contact">
     <h1>Contact</h1><br>
     <p>We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste. Do not hesitate to contact us.</p>
-    <p class="w3-text-blue-grey w3-large"><b>Catering Service, 42nd Living St, 43043 New York, NY</b></p>
+    <p class="w3-text-blue-grey w3-large"><strong>Catering Service, 42nd Living St, 43043 New York, NY</strong></p>
     <p>You can also contact us by phone 00553123-2323 or email catering@catering.com, or you can send us a message here:</p>
     <form action="/action_page.php" target="_blank">
       <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required name="Name"></p>
