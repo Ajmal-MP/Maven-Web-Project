@@ -4,12 +4,12 @@ pipeline {
     tools {
      maven 'MAVEN'
     }
-    stage('build'){
+    stages('build'){
         steps {
           sh 'maven clean package'
         }
     }
-    stage('Sonar Analysis'){
+    stages('Sonar Analysis'){
         steps {
             withSonarQubeEnv('SonarQube') {
              sh 'mvn sonar:sonar'
@@ -17,7 +17,7 @@ pipeline {
         }
     }
     
-    stage("Quality Gate") {
+    stages("Quality Gate") {
         steps {
             timeout(time:1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline:true
