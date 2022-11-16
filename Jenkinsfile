@@ -1,8 +1,25 @@
 node {
-    stage('git chekcout'){
-        git branch: 'main', url: 'https://github.com/Ajmal-MP/Maven-Web-Project'
+    tools {
+     maven 'MAVEN'
     }
-    stage('compile package'){
-        sh 'mvn package'
+    stage('build'){
+        steps {
+          sh 'maven clean package'
+        }
+    }
+    stage('Sonar Analysis'){
+        steps {
+            withSonarQubeEnv('SonarQube') {
+             sh 'mvn sonar:sonar'
+            }
+        }
+    }
+    
+    stage("Quality Gate") {
+        steps {
+            timeout(time:1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline:true
+            }
+        }
     }
 }
