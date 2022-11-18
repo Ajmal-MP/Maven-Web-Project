@@ -1,29 +1,75 @@
-# Maven-Web-Project on Ubuntu 
 
-It is a simple project with html and maven build war file. By reading this file you can easily create a maven project and convert your source code into build format
+# Jenkins CI-CD For Auto Deploy Maven Project In Tomcat Server
 
-<h2>Prerequisite</h3>
+This is a simple CI-CD pipeline of Jenkins to auto deploy maven build to tomcat server
 
-1. Setup tomcat Server 
+## Screenshots
 
-    https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-10-on-ubuntu-20-04
+![App Screenshot](https://i.postimg.cc/PJkrMT5m/jenkins-maven-tomcat.png)
 
-2. Setup Maven 
-
-    https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-
-<h2>How to make new build ?</h2>
- go to the location where pom.xml exist and run the code 
+## git clone link
 
 
-  
-      mvn clean packages
-      
-      
-Now a new build is created. Just deploy the war file in tomcat server!!!!!
+```bash
+  git clone https://github.com/Ajmal-MP/Maven-Web-Project.git
+```
 
+## Requirements
 
--------------------------------------------------------------------------------
+- Ubuntu instance
+
+- Jenkins setup
+
+    [Link to jenkins setup](https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-20-04)
+
+- Maven setup
+
+    [Link to Maven setup](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html)
+
+- Tomcat setup
+   
+    [Link to Tomcat setup](https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-10-on-ubuntu-20-04)
+
+## Jenkins pipeline for auto deploy
+
+```javascript
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "MAVEN"
+    }
+
+    stages {
+        
+        stage ('build the project') {
+           
+           steps {
+               // changing the working directory
+                ws("/var/lib/jenkins/workspace/git-web-hook") {
+                // Building the maven project
+                sh 'mvn clean package'
+            }
+           }
+            
+        }
+        
+        stage ('Deploy to Tom cat server')
+        {
+            
+            steps {
+                
+                ws("/var/lib/jenkins/workspace/git-web-hook/target") {
+                    //This line is created using pipeline syntax
+                   deploy adapters: [tomcat8(credentialsId: '3df1a731-66fa-4ff8-93ca-17fabe99a6ae', path: '', url: 'http://18.181.184.20:8080')], contextPath: 'maven-sample', war: '**/*.war'
+                }
+            }
+            
+        }
+    }
+}
+```
 
 
 
