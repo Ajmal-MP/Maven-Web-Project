@@ -23,12 +23,12 @@
          <artifactId>maven-war-plugin</artifactId>
         <version>3.3.1</version>
         </plugin>
-    </plugins>
-    <properties>
-        <!-- Optional URL to server. Default value is http://localhost:9000 -->
-        <sonar.host.url>
-          http://192.168.252.17:9000
-        </sonar.host.url>
-    </properties>   
+    </plugins> 
   </build>
+  <properties>
+      <!-- Optional URL to server. Default value is http://localhost:9000 -->
+      <sonar.host.url>
+        http://192.168.252.17:9000
+      </sonar.host.url>
+  </properties>  
 </project>
